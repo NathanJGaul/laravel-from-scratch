@@ -17,15 +17,15 @@
     </form>
 
     <div class="text-white">
-        @if (count($ideas) > 0)
+        @if ($ideas->count())
             <h2 class="font-bold">Your Ideas</h2>
             <ul>
                 @foreach ($ideas as $idea)
-                    <li class="text-sm mt-2">{{ $idea }}</li>
-                    @endforeach
-                </ul>
-            @else
-                <p>Looks like you don't have any ideas.</p>
-            @endif
-        </div>
-    </x-layout>
+                    <li class="text-sm mt-2">{{ $idea->description }}</li>
+                @endforeach
+            </ul>
+        @else
+            <p>Looks like you don't have any ideas.</p>
+        @endif
+    </div>
+</x-layout>
