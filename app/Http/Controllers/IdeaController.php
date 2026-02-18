@@ -6,6 +6,7 @@ use App\Http\Requests\IdeaRequest;
 use App\Models\Idea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class IdeaController extends Controller
 {
@@ -30,10 +31,6 @@ class IdeaController extends Controller
      */
     public function store(IdeaRequest $request)
     {
-        // $request->validate([
-        //     'description' => ['required', 'min:10']
-        // ]);
-
         Auth::user()->ideas()->create([
             'description' => request('description'),
             'state' => 'pending',
@@ -47,6 +44,8 @@ class IdeaController extends Controller
      */
     public function show(Idea $idea)
     {
+        Gate::authorize('update', $idea);
+
         return view('ideas.show', ['idea' => $idea]);
     }
 
@@ -55,6 +54,8 @@ class IdeaController extends Controller
      */
     public function edit(Idea $idea)
     {
+        Gate::authorize('update', $idea);
+
         return view('ideas.edit', ['idea' => $idea]);
     }
 
@@ -63,6 +64,8 @@ class IdeaController extends Controller
      */
     public function update(IdeaRequest $request, Idea $idea)
     {
+        Gate::authorize('update', $idea);
+
         $idea->update([
             'description' => request('description')
         ]);
@@ -75,6 +78,8 @@ class IdeaController extends Controller
      */
     public function destroy(Idea $idea)
     {
+        Gate::authorize('update', $idea);
+
         $idea->delete();
 
         return redirect('/ideas');
