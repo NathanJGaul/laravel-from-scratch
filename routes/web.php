@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\SessionsController;
 use App\Http\Controllers\IdeaController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Idea;
+use Illuminate\Support\Facades\Gate;
 
 Route::middleware('auth')->group(function () {
     Route::get('/ideas', [IdeaController::class, 'index']);
@@ -24,4 +25,10 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/login', [SessionsController::class, 'create'])->name('login');
     Route::post('/login', [SessionsController::class, 'store']);
+});
+
+Route::get('/admin', function () {
+    Gate::authorize('view-admin');
+
+    return 'Private Admin only area';
 });
