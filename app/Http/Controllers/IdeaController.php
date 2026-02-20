@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\IdeaRequest;
 use App\Models\Idea;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -19,14 +18,6 @@ class IdeaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('ideas.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(IdeaRequest $request)
@@ -37,6 +28,14 @@ class IdeaController extends Controller
         ]);
 
         return redirect('/ideas');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('ideas.create');
     }
 
     /**
@@ -67,7 +66,7 @@ class IdeaController extends Controller
         Gate::authorize('update', $idea);
 
         $idea->update([
-            'description' => request('description')
+            'description' => request('description'),
         ]);
 
         return redirect("/ideas/{$idea->id}");

@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Idea;
 use Illuminate\Support\Facades\Gate;
 
+Route::get('/', function () {
+    return 'Home Page';
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/ideas', [IdeaController::class, 'index']);
     Route::get('/ideas/create', [IdeaController::class, 'create']);
